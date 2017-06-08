@@ -5,6 +5,9 @@
 <div class="row">
   <div class="col-md-12 mb-2">
     <dl class="dl-horizontal">
+      <dt>Listing ID</dt>
+      <dd><%= @listing.id %></dd>
+
       <dt>Book name</dt>
       <dd><%= @listing.book_name %></dd>
 
@@ -15,7 +18,13 @@
       <dd><%= @listing.course_code %></dd>
 
       <dt>Required</dt>
-      <dd><%= @listing.required %></dd>
+      <dd><%=
+        if @listing.required == true
+          "Yes"
+        else
+          "No"
+        end
+        %></dd>
 
       <dt>Price</dt>
       <dd><%= @listing.price %></dd>
@@ -26,18 +35,27 @@
       <dt>User</dt>
       <dd><%= @listing.user_id %></dd>
 
+      <dt>Picture</dt>
+      <dd>
+        <% @listing.photos.each do |photo| %>
+          <img src="<%= photo.image_url %>"/>
+        <% end %>
+      </dd>
+
     </dl>
 
     <div class="btn-group btn-group-justified">
       <a href="/listings" class="btn btn-primary">
         Back
       </a>
-      <a href="/listings/<%= @listing.id %>/edit" class="btn btn-warning">
-        Edit
-      </a>
-      <a href="/delete_listing/<%= @listing.id %>" class="btn btn-danger" rel="nofollow">
-        Delete
-      </a>
+      <% if current_user.id == @listing.user_id %>
+        <a href="/listings/<%= @listing.id %>/edit" class="btn btn-warning">
+          Edit
+        </a>
+        <a href="/delete_listing/<%= @listing.id %>" class="btn btn-danger" rel="nofollow">
+          Delete
+        </a>
+      <% end %>
     </div>
   </div>
 </div>

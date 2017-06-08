@@ -16,16 +16,18 @@
       </tr>
 
       <% @messages.each do |message| %>
-      <tr>
-        <td><%= message.sender_id %></td>
-        <td><%= message.receiver_id %></td>
-        <td><%= message.body %></td>
-        <td>
-          <a href="/messages/<%= message.id %>" class="btn btn-primary">Show</a>
-          <a href="/messages/<%= message.id %>/edit" class="btn btn-warning">Edit</a>
-          <a href="/delete_message/<%= message.id %>" class="btn btn-danger" rel="nofollow">Delete</a>
-        </td>
-      </tr>
+        <% if message.receiver_id == current_user.id %>
+        <tr>
+          <td><%= message.sender_id %></td>
+          <td><%= message.receiver_id %></td>
+          <td><%= message.body %></td>
+          <td>
+            <a href="/messages/<%= message.id %>" class="btn btn-primary">Show</a>
+            <a href="/messages/<%= message.id %>/edit" class="btn btn-warning">Edit</a>
+            <a href="/delete_message/<%= message.id %>" class="btn btn-danger" rel="nofollow">Delete</a>
+          </td>
+        </tr>
+        <% end %>
       <% end %>
     </table>
   </div>
